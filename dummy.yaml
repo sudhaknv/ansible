@@ -1,0 +1,15 @@
+---
+ - hosts: 192.168.56.3
+   gather_facts: yes
+   tasks:
+    - name: copy files
+      template:
+        src: /srv/httpd.j2
+        dest: /etc/httpd.conf
+        mode: 0600
+      notify:
+      - restart httpd service
+   handlers:
+     - name: retart apache2 service
+       service: name=httpd state=restarted
+
